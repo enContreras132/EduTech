@@ -1,4 +1,4 @@
-package Model;
+package com.duoc.EduTech.Model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

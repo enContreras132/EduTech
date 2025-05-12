@@ -1,8 +1,7 @@
-package Service;
+package com.duoc.EduTech.Service;
 
-import Model.Product;
-import Repository.ProductRepository;
-import Repository.UserRepository;
+import com.duoc.EduTech.Model.Product;
+import com.duoc.EduTech.Repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

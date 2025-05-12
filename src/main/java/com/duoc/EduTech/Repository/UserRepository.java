@@ -1,6 +1,6 @@
-package Repository;
+package com.duoc.EduTech.Repository;
 
-import Model.User;
+import com.duoc.EduTech.Model.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;

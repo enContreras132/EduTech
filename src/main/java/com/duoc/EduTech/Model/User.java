@@ -1,4 +1,4 @@
-package Model;
+package com.duoc.EduTech.Model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

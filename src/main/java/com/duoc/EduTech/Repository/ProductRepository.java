@@ -1,6 +1,6 @@
-package Repository;
+package com.duoc.EduTech.Repository;
 
-import Model.Product;
+import com.duoc.EduTech.Model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
