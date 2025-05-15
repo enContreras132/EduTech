@@ -13,5 +13,6 @@ public abstract class User {
     private String password;
     private String email;
     private Boolean accountState;
+    private String rol;
 
 }
