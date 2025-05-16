@@ -18,16 +18,5 @@ public class ClienteAlumno extends User{
     private int ID;
 
 
-    //Buscar
-    private String FinnById(int ID){
-        return "";
-    }
 
-    //Listar
-    private String List(int ID){
-        return "";
-    }
-
-    //Eliminar
-    public String Delete(int ID) {};
 }
