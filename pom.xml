@@ -53,8 +53,15 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-	</dependencies>
+		<dependency>
 
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<version>9.3.0</version>
+
+		</dependency>
+
+	</dependencies>
 
 	<build>
 		<plugins>

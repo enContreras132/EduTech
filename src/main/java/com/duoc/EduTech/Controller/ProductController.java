@@ -1,7 +1,7 @@
-package Controller;
+package com.duoc.EduTech.Controller;
 
-import Model.Product;
-import Service.ProductService;
+import com.duoc.EduTech.Model.Product;
+import com.duoc.EduTech.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
