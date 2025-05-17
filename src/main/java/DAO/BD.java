@@ -1,4 +1,5 @@
 package DAO;
+import java.sql.Connection;
 
 public class BD {
     public static void main(String[] args) {
