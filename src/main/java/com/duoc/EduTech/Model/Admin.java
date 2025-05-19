@@ -14,5 +14,6 @@ import lombok.NoArgsConstructor;
 public class Admin extends User{
     @Id
     private int id;
+    private int edad;
 
 }
