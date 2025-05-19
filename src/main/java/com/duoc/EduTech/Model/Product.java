@@ -34,4 +34,12 @@ public class Product {
     public void setID(int ID) {
         this.ID = ID;
     }
+
+    public String getDescription() {
+        return "";
+    }
+
+    public String getPrice() {
+        return null;
+    }
 }
