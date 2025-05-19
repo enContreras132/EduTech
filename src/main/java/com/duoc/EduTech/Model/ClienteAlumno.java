@@ -16,6 +16,7 @@ public class ClienteAlumno extends User{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID;
+    private String k;//prueba de branch, dsps borrar
 
 
 
