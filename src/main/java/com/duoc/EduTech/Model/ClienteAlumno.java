@@ -1,6 +1,7 @@
 package com.duoc.EduTech.Model;
 
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,23 +12,15 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+
+@Entity
 public class ClienteAlumno extends User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID;
+    private String k;//prueba de branch, dsps borrar
 
 
-    //Buscar
-    private String FinnById(int ID){
-        return "";
-    }
 
-    //Listar
-    private String List(int ID){
-        return "";
-    }
-
-    //Eliminar
-    public String Delete(int ID) {};
 }

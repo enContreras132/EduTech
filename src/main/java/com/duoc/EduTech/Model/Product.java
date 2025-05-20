@@ -22,4 +22,24 @@ public class Product {
     private String description;
     private int price;
     private int stock;
+
+    public String getName() {
+        return "";
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public String getDescription() {
+        return "";
+    }
+
+    public String getPrice() {
+        return null;
+    }
 }
