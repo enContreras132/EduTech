@@ -2,7 +2,7 @@ package com.duoc.EduTech.Service;
 
 
 
-import com.duoc.EduTech.Model.Curso;
+
 import com.duoc.EduTech.Model.Instructor;
 import com.duoc.EduTech.Repository.InstructorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
