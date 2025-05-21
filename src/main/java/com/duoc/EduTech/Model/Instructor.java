@@ -18,9 +18,4 @@ public class Instructor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String nombre;
-    private String especialidad;
-    private String correo;
-    private String contrasena;
-
 }
