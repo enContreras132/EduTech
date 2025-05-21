@@ -16,5 +16,4 @@ public class Instructor {
     @Id
     private int id;
 
-
 }
