@@ -12,23 +12,63 @@ public class CursoService {
     CursoRepository cursoRepository;
 
     public String addCurso(Curso curso) {
-        return cursoRepository.addCurso(curso);
+        cursoRepository.save(curso);
+        return "Curso agregado.";
     }
 
-//    public String deleteUser(int id) {
-//        return userRepository.removeUser(id);
-//    }
-//
-//    public String getAllUsers() {
-//        return userRepository.getAllUsers();
-//    }
-//
-//    public String getUserById(int id) {
-//        return userRepository.getUser(id);
-//    }
-//
-//    public String updateUser(int id, User user) {
-//        return userRepository.updateUser(id, user);
-//    }
+    public String deleteCurso(int id) {
+        if (cursoRepository.existsById(id)){
+            cursoRepository.deleteById(id);
+            return "Curso eliminado.";
+        }
+        else {
+            return "Curso no encontrado";
+        }
+    }
+
+    public String getAllCursos() {
+        String output = "";
+        for (Curso c : cursoRepository.findAll()){
+            output += "id: "+c.getId()+"\n";
+            output += "nombre: "+c.getNombre()+"\n";
+            output += "desc: "+c.getDescripcion()+"\n";
+            output += "capacidad: "+c.getCapacidad()+"\n";
+        }
+        if (output.isEmpty()){
+            return "no hay cursos";
+        }
+        else {
+            return output;
+        }
+    }
+
+    public String getCursoById(int id) {
+        String output = "";
+        if (cursoRepository.existsById(id)){
+            Curso c = cursoRepository.findById(id).get();
+            output += "id: "+c.getId()+"\n";
+            output += "nombre: "+c.getNombre()+"\n";
+            output += "desc: "+c.getDescripcion()+"\n";
+            output += "capacidad: "+c.getCapacidad()+"\n";
+            return output;
+        }
+        else {
+            return "curso no encontrado";
+        }
+    }
+
+    public String updateCurso(int id, Curso curso) {
+        if (cursoRepository.existsById(id)){
+            Curso c = cursoRepository.findById(id).get();
+            c.setNombre(curso.getNombre());
+            c.setCapacidad(curso.getCapacidad());
+            c.setDescripcion(curso.getDescripcion());
+            cursoRepository.save(c);
+            return "curso actualizado";
+        }
+        else {
+            return "curso no encontrado";
+        }
+    }
 
 }

@@ -14,8 +14,8 @@ public class CursoController {
     CursoService cursoService;
 
     @GetMapping
-    public String getAllUsers(){
-        return cursoService.getAllUsers();
+    public String getAllCursos(){
+        return cursoService.getAllCursos();
     }
 
     @GetMapping("/{id}")
@@ -23,10 +23,10 @@ public class CursoController {
         return cursoService.getCursoById(id);
     }
 
-//    @PostMapping
-//    public String addCurso(@RequestBody Curso curso){
-//        return cursoService.addCurso(Curso);
-//    }
+    @PostMapping
+    public String addCurso(@RequestBody Curso curso){
+        return cursoService.addCurso(curso);
+    }
 
     @DeleteMapping("/{id}")
     public String deleteCursoById(@PathVariable int id){
