@@ -14,12 +14,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 @Entity
-public class ClienteAlumno extends User{
+public class ClienteAlumno {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int ID;
-    private String k;//prueba de branch, dsps borrar
+    private String Nombre;
 
 
 
