@@ -2,6 +2,7 @@ package com.duoc.EduTech.Service;
 
 
 import com.duoc.EduTech.Model.GerenteCursos;
+import com.duoc.EduTech.Model.Instructor;
 import com.duoc.EduTech.Repository.GerenteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,5 +21,9 @@ public class GerenteCursosService {
         gerenteRepository.save(gerenteCursos);
         return "Gerente agregado.";
     }
+
+    //Listar
+
+
 
 }
