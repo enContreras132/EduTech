@@ -1,6 +1,10 @@
 package com.duoc.EduTech.Model;
 
+<<<<<<< HEAD
 
+=======
+import jakarta.persistence.Entity;
+>>>>>>> eb633347e2c48c2dea285ea4d647ec2bc5c94cb3
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -11,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
+@Entity
 public class Inscripcion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
