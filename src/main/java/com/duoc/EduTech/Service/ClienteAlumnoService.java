@@ -1,7 +1,6 @@
 package com.duoc.EduTech.Service;
 
 import com.duoc.EduTech.Model.ClienteAlumno;
-import com.duoc.EduTech.Model.Curso;
 import com.duoc.EduTech.Repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +36,7 @@ public class ClienteAlumnoService {
             output += "fecha de registro: "+c.getFecha_registro()+"\n";
         }
         if (output.isEmpty()){
-            return "no hay cursos";
+            return "no hay alumnos";
         }
         else {
             return output;
@@ -56,7 +55,7 @@ public class ClienteAlumnoService {
             return output;
         }
         else {
-            return "curso no encontrado";
+            return "alumno no encontrado";
         }
     }
 
@@ -67,10 +66,10 @@ public class ClienteAlumnoService {
             c.setCorreo(cliente.getCorreo());
             c.setContraseña(cliente.getContraseña());
             clienteRepository.save(c);
-            return "curso actualizado";
+            return "alumno actualizado";
         }
         else {
-            return "curso no encontrado";
+            return "alumno no encontrado";
         }
     }
 }
