@@ -70,13 +70,7 @@ public class ClienteAlumnoService {
             return "curso actualizado";
         }
         else {
-            return "curso no encontrado ejemplo";
+            return "curso no encontrado";
         }
-
-
-        System.out.println("Hola");
-
-
-
     }
 }
