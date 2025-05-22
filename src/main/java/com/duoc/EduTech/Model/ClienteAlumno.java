@@ -57,11 +57,11 @@ public class ClienteAlumno {
         Contraseña = contraseña;
     }
 
-    public LocalDate getFecha_registro() {
+    public String getFecha_registro() {
         return fecha_registro;
     }
 
-    public void setFecha_registro(LocalDate fecha_registro) {
+    public void setFecha_registro(String fecha_registro) {
         this.fecha_registro = fecha_registro;
     }
 }
