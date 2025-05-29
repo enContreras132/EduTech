@@ -26,7 +26,7 @@ public class CursoService {
         }
     }
 
-    public String getAllCursos() {
+    public static String getAllCursos() {
         String output = "";
         for (Curso c : cursoRepository.findAll()){
             output += "id: "+c.getId()+"\n";
