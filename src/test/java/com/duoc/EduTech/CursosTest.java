@@ -49,11 +49,18 @@ public class CursosTest {
     }
 
     @Test
-    void CheckGetAllCursosRepository;() {
-        Mockito.when(CursoService.getAllCursos()).thenReturn("ListaCompleta");
+    void CheckGetAllCursosRepository() {
+        Mockito.when(cursoService.getAllCursos()).thenReturn("ListaCompleta");
         
         try {
+            mockMvc.perform(get("/clase"))
+                    .andExpect(status().isOk())
+                    .andExpect(content().string("ListaCompleta"));
 
+
+        } catch (Exception ex) {
+            System.out.println("error: " + ex.getMessage());
+            fail();
         }
     }
 
