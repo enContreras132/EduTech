@@ -1,7 +1,7 @@
 package com.duoc.EduTech;
 
 
-import com.duoc.EduTech.Repository.InscripcionRepository;
+import com.duoc.EduTech.Repository.InstructorRepository;
 import com.duoc.EduTech.Service.InstructorService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class InstructorTest {
 
     @Autowired
-    InscripcionRepository InstructorRepository;
+    InstructorRepository InstructorRepository;
 
     @Autowired
     MockMvc mockMvc;
