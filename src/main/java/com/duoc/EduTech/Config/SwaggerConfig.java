@@ -11,8 +11,8 @@ public class SwaggerConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("titulo para poner")
+                        .title("Edutech")
                         .version("1.0")
-                        .description("añadir alguna descripcion"));
+                        .description("Trabajo semestral FullStack 004D"));
     }
 }
