@@ -47,11 +47,33 @@ public class CursosTest {
         assertNotNull(curso);
         assertEquals("",curso.getNombre());
     }
+    @Test
+    void deleteCursoByIdTest() {
+        //ESTE TEST ES UNA PRUEBA PARA BORRAR CURSOS
+
+        Curso curso = new Curso();
+        curso.setNombre("Curso de Prueba");
+        curso.setDescripcion("Este curso será eliminado");
+        curso.setCapacidad(20);
+
+
+        Curso savedCurso = cursoRepository.save(curso);
+        int savedId = savedCurso.getId();
+
+
+        assertTrue(cursoRepository.findById(savedId).isPresent());
+
+
+        cursoRepository.deleteById(savedId);
+
+
+        assertFalse(cursoRepository.findById(savedId).isPresent());
+    }
 
     @Test
-    void CheckGetAllCursosRepository() {
+    public void CheckGetAllCursosRepository() {
         Mockito.when(cursoService.getAllCursos()).thenReturn("ListaCompleta");
-        
+
         try {
             mockMvc.perform(get("/clase"))
                     .andExpect(status().isOk())
@@ -63,7 +85,8 @@ public class CursosTest {
             fail();
         }
     }
-
-
-
 }
+
+
+
+

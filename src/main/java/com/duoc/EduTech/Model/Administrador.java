@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 @Entity
-public class Administrador {
+public class    Administrador {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_admin;
