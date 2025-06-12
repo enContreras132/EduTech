@@ -43,7 +43,7 @@ public class InstructorService {
 
     //Listar por ID
 
-    public String getInstructorById() {
+    public String getInstructorById(int id) {
         String output = "";
         if (!InstructorRepository.existsById(id)) {
             return "Instructor no encontrado";
