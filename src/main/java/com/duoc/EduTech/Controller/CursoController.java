@@ -22,7 +22,9 @@ public class CursoController {
     @GetMapping
     @Operation(summary = "obtener todos los cursos del sistema", description = "una lista con los datos de los cursos exitentes")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "se muestra la lista de cursos")
+            @ApiResponse(responseCode = "200", description = "se muestra la lista de cursos"),
+            @ApiResponse(responseCode = "400", description = "Error al listar los cursos")
+
     })
     public String getAllCursos(){
         return cursoService.getAllCursos();
@@ -31,7 +33,9 @@ public class CursoController {
     @GetMapping("/{id}")
     @Operation(summary = "obtener curso por id", description = "obtiene el curso que tiene ese id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "se muestra la lista de los cursos que tienen ese id")
+            @ApiResponse(responseCode = "200", description = "se muestra la lista de los cursos que tienen ese id"),
+            @ApiResponse(responseCode = "400", description = "No se ha encontrado al curso por id")
+
     })
     public String getCursoById(@PathVariable int id){
         return cursoService.getCursoById(id);
@@ -40,7 +44,9 @@ public class CursoController {
     @PostMapping
     @Operation(summary = "Añadir un curso", description = "Añade cursos al sistema")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "curso añadido con exito")
+            @ApiResponse(responseCode = "200", description = "curso añadido con exito"),
+            @ApiResponse(responseCode = "400", description = "No se ha podido añadir el curso")
+
     })
     public String addCurso(@RequestBody Curso curso){
         return cursoService.addCurso(curso);
@@ -49,7 +55,9 @@ public class CursoController {
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar cursos", description = "Elimina cursos del sistema")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "curso eliminado con exito")
+            @ApiResponse(responseCode = "200", description = "curso eliminado con exito"),
+            @ApiResponse(responseCode = "400", description = "No se ha podido eliminar el curso")
+
     })
     public String deleteCursoById(@PathVariable int id){
         return cursoService.deleteCurso(id);
@@ -58,7 +66,9 @@ public class CursoController {
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar curso", description = "Actualiza los cursos del sistema")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Curso actualizado con exito")
+            @ApiResponse(responseCode = "200", description = "Curso actualizado con exito"),
+            @ApiResponse(responseCode = "400", description = "No se ha actualizado el curso")
+
     })
     public String updateCurso(@PathVariable int id,@RequestBody Curso curso){
         return  cursoService.updateCurso(id,curso);

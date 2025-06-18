@@ -21,7 +21,9 @@ public class AdministradorController {
     @GetMapping
     @Operation(summary = "obtener todos los administradores del sistema", description = "una lista con los datos de los administradores")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "se muestra la lista de administradores")
+            @ApiResponse(responseCode = "200", description = "se muestra la lista de administradores"),
+            @ApiResponse(responseCode = "400", description = "No se ha podido encontrar a los administradores")
+
     })
     public String getAllAdministrador(){
         return AdministradorService.getAllAdministrador();
@@ -30,7 +32,9 @@ public class AdministradorController {
     @GetMapping("/{id}")
     @Operation(summary = "obtener administrador por id", description = "Muestra el adminsitrador que tienen ese id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "se muestra una lista de adminstrador que tiene el id especificado")
+            @ApiResponse(responseCode = "200", description = "se muestra una lista de adminstrador que tiene el id especificado"),
+            @ApiResponse(responseCode = "400", description = "No se ha podido obtener al adminstrador")
+
     })
     public String getAdministradorById(@PathVariable int id){
         return AdministradorService.getAdministradorById(id);
@@ -39,7 +43,9 @@ public class AdministradorController {
     @PostMapping
     @Operation(summary = "Añadir adminstrador", description = "Añade un administrador")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Administrador añadido con exito")
+            @ApiResponse(responseCode = "200", description = "Administrador añadido con exito"),
+            @ApiResponse(responseCode = "400", description = "Ha ocurrido un problema al añadir el adminitrador")
+
     })
     public String addAdministrador(@RequestBody Administrador administrador){
         return AdministradorService.addAdministrador(administrador);
@@ -48,7 +54,9 @@ public class AdministradorController {
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar administrador por id", description = "elimina al adminstador que posee ese id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Administrador eliminado")
+            @ApiResponse(responseCode = "200", description = "Administrador eliminado con exito"),
+            @ApiResponse(responseCode = "400", description = "Ha ocurrido un problema al eliminar un administrador")
+
     })
     public String deleteAdminstradorById(@PathVariable int id){
         return AdministradorService.deleteAdministrador(id);
@@ -57,7 +65,9 @@ public class AdministradorController {
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar adminstrador", description = "Actualiza a los administradores")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Admin actualizado con exito")
+            @ApiResponse(responseCode = "200", description = "Admin actualizado con exito"),
+            @ApiResponse(responseCode = "400", description = "Ha ocurrido un error al actualizar al administrador")
+
     })
     public String updateAdministrador(@PathVariable int id,@RequestBody Administrador administrador){
         return  AdministradorService.updateAdminstrador(id,administrador);
