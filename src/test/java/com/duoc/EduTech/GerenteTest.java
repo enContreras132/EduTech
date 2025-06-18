@@ -27,4 +27,33 @@ public class GerenteTest {
     @MockitoBean
     GerenteCursosService GerenteCursosService;
 
+    @Test
+    void addGerente() {   // Añadir Gerente/Add gerente
+
+
+    }
+    @Test
+    void getAllGerente(){   // Mostrar Todos los gerentes
+
+
+    }
+    @Test
+    void deleteGerente(){   //Borrar Gerente/Delete Gerente
+
+
+    }
+    @Test
+    void getGerenteById(){    //Mostrar Gerent por ID
+
+
+    }
+    @Test
+    void updateGerente(){   //Actualizar Gerente
+
+
+    }
+
+
+
+
 }

@@ -29,4 +29,31 @@ public class ClienteTest {
     @MockitoBean
     ClienteAlumnoService ClienteAlumnoService;
 
+    @Test
+    void addCliente(){   // Añadir Cliente
+
+
+    }
+    @Test
+    void deleteCliente(){   //Delete/Borrar Cliente
+
+
+    }
+    @Test
+    void getAllClientes(){   //Mostrar Todos los Clientes
+
+
+    }
+    @Test
+    void getClienteById(){  //Mostrar Cliente por ID
+
+
+    }
+    @Test
+    void updateCliente(){  // Actualizar Cliente
+
+
+    }
+
+
 }

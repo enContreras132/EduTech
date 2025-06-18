@@ -31,4 +31,35 @@ public class InscripcionTest {
     @MockitoBean
     InscripcionService InscripcionService;
 
+    @Test
+    void addInscripcion(){ // Agregar
+
+
+    }
+    @Test
+    void getAllInscripcion(){   //Listar
+
+
+    }
+    @Test
+    void deleteInscripcion(){   //Borrar/Delete
+
+
+    }
+    @Test
+    void getInscripcionById(){    //Listar por ID
+
+
+    }
+    @Test
+    void updateInscripcion(){     // Actualizar Inscripcion//Update Inscripcion
+
+
+    }
+
+
+
+
+
+
 }
