@@ -2,7 +2,6 @@ package com.duoc.EduTech.Controller;
 
 
 import com.duoc.EduTech.Model.Instructor;
-import com.duoc.EduTech.Service.CursoService;
 import com.duoc.EduTech.Service.InstructorService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -38,7 +37,7 @@ public class InstructorController {
 
     })
     public String getInstructorById(@PathVariable int id){
-        return instructorService.getInstructorById(id);
+        return instructorService.getInstructorById();
     }
 
     @PostMapping
