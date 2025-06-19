@@ -47,6 +47,22 @@ public class CursosTest {
         assertNotNull(curso);
         assertEquals("",curso.getNombre());
     }
+
+    @Test
+    void CheckGetAllCursosRepository() {
+        Mockito.when(cursoService.getAllCursos()).thenReturn("ListaCompleta");
+        
+        try {
+            mockMvc.perform(get("/clase"))
+                    .andExpect(status().isOk())
+                    .andExpect(content().string("ListaCompleta"));
+
+
+        } catch (Exception ex) {
+            System.out.println("error: " + ex.getMessage());
+            fail();
+        }
+    }
     @Test
     void deleteCursoByIdTest() {
         //ESTE TEST ES UNA PRUEBA PARA BORRAR CURSOS
@@ -70,23 +86,6 @@ public class CursosTest {
         assertFalse(cursoRepository.findById(savedId).isPresent());
     }
 
-    @Test
-    public void CheckGetAllCursosRepository() {
-        Mockito.when(cursoService.getAllCursos()).thenReturn("ListaCompleta");
-
-        try {
-            mockMvc.perform(get("/clase"))
-                    .andExpect(status().isOk())
-                    .andExpect(content().string("ListaCompleta"));
 
 
-        } catch (Exception ex) {
-            System.out.println("error: " + ex.getMessage());
-            fail();
-        }
-    }
 }
-
-
-
-
