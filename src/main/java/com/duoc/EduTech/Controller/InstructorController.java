@@ -37,7 +37,7 @@ public class InstructorController {
 
     })
     public String getInstructorById(@PathVariable int id){
-        return instructorService.getInstructorById();
+        return instructorService.getInstructorById(id);
     }
 
     @PostMapping
