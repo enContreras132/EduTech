@@ -45,7 +45,7 @@ public class InscripcionService {
     }
 
     //listar por id
-    public static String getInscripcionById(int id) {
+    public  String getInscripcionById(int id) {
         String output = "";
         if (inscripcionRepository.existsById(id)){
             Inscripcion i = inscripcionRepository.findById(id).get();
