@@ -1,8 +1,10 @@
 package com.duoc.EduTech;
 
 import com.duoc.EduTech.Model.Curso;
+import com.duoc.EduTech.Model.GerenteCursos;
 import com.duoc.EduTech.Repository.CursoRepository;
 import com.duoc.EduTech.Service.CursoService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,13 @@ public class CursosTest {
     @MockitoBean
     CursoService cursoService;
 
+    @BeforeEach
+    void guardarCampoBd() {
+        Curso curso = new Curso();
+        curso.setNombre("Curso de Prueba 1");
+        cursoRepository.save(curso); // Guarda el curso en la BD de prueba
+    }
+
     @Test
     void FindAllCursosTest() {
         List <Curso> cursos = cursoRepository.findAll();
@@ -45,7 +54,7 @@ public class CursosTest {
         Curso curso = cursoRepository.findById(1).get();
 
         assertNotNull(curso);
-        assertEquals("",curso.getNombre());
+        assertEquals("Curso de prueba 1",curso.getNombre());
     }
 
     @Test

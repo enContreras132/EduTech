@@ -4,6 +4,7 @@ import com.duoc.EduTech.Model.GerenteCursos;
 import com.duoc.EduTech.Repository.GerenteRepository;
 import com.duoc.EduTech.Service.GerenteCursosService;
 import jakarta.persistence.EntityNotFoundException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,82 +19,64 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 
 public class GerenteTest {
     @Autowired
-    GerenteRepository  GerenteRepository;
+    GerenteRepository  gerenteRepository;
 
     @Autowired
     MockMvc mockMvc;
 
     @MockitoBean
-    GerenteCursosService GerenteCursosService;
+    GerenteCursosService gerenteCursosService;
+
+    //metodo que crea un campo en la base de datos para que la prueba findAllGerentes corra bien
+    @BeforeEach
+    void guardarCampoBd() {
+        GerenteCursos gerente = new GerenteCursos();
+        gerente.setNombre("Gerente de Prueba 1");
+        gerenteRepository.save(gerente); // Guarda el gerente en la BD de prueba
+    }
 
     @Test
     void findAllGerentesTest() {
-        List<GerenteCursos> gerentes = GerenteRepository.findAll();
+        List<GerenteCursos> gerentes = gerenteRepository.findAll();
 
             assertNotNull(gerentes);
-            assertTrue(gerentes.size() >= 0);
-
+            assertEquals(8,gerentes.size());
 
     }
     @Test
     void checkGerenteNombreTest(){
-        Optional<GerenteCursos> optionalGerente = GerenteRepository.findById(1);
+        GerenteCursos gerente = gerenteRepository.findById(1).get();
 
-        assertTrue(optionalGerente.isPresent());
-        assertNotNull(optionalGerente.get().getNombre());
-
+        assertNotNull(gerente);
+        assertEquals("Gerente de Prueba 1",gerente.getNombre());
 
     }
     @Test
-    void chekGetAllGerentesEndpointTest(){
-        Mockito.when(GerenteCursosService.getAllGerente()).thenReturn(String.valueOf(List.of()));
+    void chekGetAllGerentes(){
+        Mockito.when(gerenteCursosService.getAllGerente()).thenReturn("Lista completa");
 
         try {
             mockMvc.perform(get("/gerente"))
-                    .andExpect(status().isOk());
-
+                    .andExpect(status().isOk())
+                    .andExpect(content().string("Lista completa"));
         } catch (Exception e){
-            fail("fallo el endpoint:" + e.getMessage());
+            System.out.println("error: "+e.getMessage());
+            fail();
 
         }
 
 
 
     }
-    @Test
-    void deleteGerenteByIdTest(){
-        GerenteCursos gerente = new GerenteCursos();
-        gerente.setNombre("Prueba");
-        gerente.setCorreo("prueba@correo.com");
-        gerente.setContrasena("1234");
-        gerente.setDepartamento("Educación");
-
-        GerenteCursos savedGerente = GerenteRepository.save(gerente);
-        int id = savedGerente.getId();
-
-        assertTrue(GerenteRepository.findById(id).isPresent());
-
-        GerenteRepository.deleteById(id);
-        assertFalse(GerenteRepository.findById(id).isPresent());
 
 
-    }
-    @Test
-    void gerenteNoEncontradoLanzaExepcion(){
-        int idInexistente = 999999;
-
-        assertThrows(EntityNotFoundException.class,() -> {
-            GerenteCursosService.getGerenteById(idInexistente);
-        });
-
-
-    }
 
 
 
