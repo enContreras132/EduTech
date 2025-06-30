@@ -70,8 +70,8 @@ public class InstructorController {
 
 
     })
-    public String updateInstructor(@PathVariable int id,@RequestBody Instructor instructor){
-        return  instructorService.updateInstructor(id,instructor);
+    public String updateInstructor(@PathVariable int id, @RequestBody Instructor instructor) {
+        return instructorService.updateInstructor(id, instructor);
     }
 
 }

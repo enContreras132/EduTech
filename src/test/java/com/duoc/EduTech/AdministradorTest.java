@@ -12,8 +12,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -24,7 +22,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class AdministradorTest {
 
     @Autowired
-    AdministradorRepository  AdministradorRepository;
+    AdministradorRepository administradorRepository;
 
     @Autowired
     MockMvc mockMvc;
@@ -50,60 +48,74 @@ public class AdministradorTest {
     }
 
     @Test
-    void addDeleteAdministradorTest(){
-        Administrador admin = new Administrador();
-        admin.setNombre("Admin Test"); // pueden poner el nombre que sea puse test para probar
-        admin.setCorreo("edutech@test.duocuc");
-        admin.setContrasena("1234");
+    void getAdministradorByIdTest() throws Exception {
+        int id = 1;
+        Mockito.when(AdministradorService.getAdministradorById(id)).thenReturn("Admin encontrado");
 
-        Administrador guardado = AdministradorRepository.save(admin);
-        int id = guardado.getId_admin();
-        assertTrue(AdministradorRepository.findById(id).isPresent(),"El administrador se guardado");
-
-        AdministradorRepository.deleteById(id);
-
-        Optional<Administrador> eliminado = AdministradorRepository.findById(id);
-        assertFalse(eliminado.isPresent(),"El Administrador se elimino");
-
-
-    }
-    @Test
-    void getAdministradorById(){
-        Administrador admin = new Administrador();
-        admin.setNombre("Buscar Test");
-        admin.setCorreo("test@duocuc.cl");
-        admin.setContrasena("1234");
-
-        Administrador guardado = AdministradorRepository.save(admin);
-        int id = guardado.getId_admin();
-
-        Optional<Administrador> encontrado = AdministradorRepository.findById(id);
-        assertTrue(encontrado.isPresent(),"Deberia encontrarse el administrador por ID");
-
-        AdministradorRepository.deleteById(id);
-
+        mockMvc.perform(get("/admin/{id}", id))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Admin encontrado"));
     }
 
     @Test
-    void updateAdministradorTest(){
+    void addAdministradorTest() throws Exception {
         Administrador admin = new Administrador();
-        admin.setNombre("Original");
-        admin.setCorreo("Original@duocuc.cl");
+        admin.setNombre("Test");
+        admin.setCorreo("test@duoc.cl");
         admin.setContrasena("1234");
 
-        Administrador guardado = AdministradorRepository.save(admin);
-        int id = guardado.getId_admin();
+        Mockito.when(AdministradorService.addAdministrador(Mockito.any(Administrador.class)))
+                .thenReturn("Administrador añadido con exito");
 
-        Administrador actualizado = AdministradorRepository.findById(id).get();
-        actualizado.setNombre("Modificacion");
-        actualizado.setCorreo("Modificacion@duocuc.cl");
-
-        Administrador resultado = AdministradorRepository.findById(id).get();
-        assertEquals("Modificacion", resultado.getNombre(), "El nombre deberia haberse actualizado");
-        assertEquals("Modificacion@duocuc.cl",resultado.getCorreo(),"El correo deberia haberse actualizado");
-
-        AdministradorRepository.deleteById(id);
-
+        mockMvc.perform(post("/admin")
+                        .contentType("application/json")
+                        .content("""
+                    {
+                        "nombre": "Test",
+                        "correo": "test@duoc.cl",
+                        "contrasena": "1234"
+                    }
+                    """))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Administrador añadido con exito"));
     }
+
+    @Test
+    void deleteAdministradorTest() throws Exception {
+        int id = 1;
+        Mockito.when(AdministradorService.deleteAdministrador(id)).thenReturn("Administrador eliminado con exito");
+
+        mockMvc.perform(delete("/admin/{id}", id))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Administrador eliminado con exito"));
+    }
+
+    @Test
+    void updateAdministradorTest() throws Exception {
+        int id = 1;
+        Mockito.when(AdministradorService.updateAdminstrador(Mockito.eq(id), Mockito.any(Administrador.class)))
+                .thenReturn("Admin actualizado con exito");
+
+        mockMvc.perform(put("/admin/{id}", id)
+                        .contentType("application/json")
+                        .content("""
+                    {
+                        "nombre": "Modificado",
+                        "correo": "nuevo@duoc.cl",
+                        "contrasena": "5678"
+                    }
+                    """))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Admin actualizado con exito"));
+    }
+
+
+
+
+
+
+
+
+
 
 }

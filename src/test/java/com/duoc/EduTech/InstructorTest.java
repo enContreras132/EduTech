@@ -31,111 +31,96 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class InstructorTest {
 
     @Autowired
-    InstructorRepository InstructorRepository;
+    InstructorRepository instructorRepository;
 
     @Autowired
     MockMvc mockMvc;
 
     @MockitoBean
-    InstructorService InstructorService;
+    InstructorService instructorService;
+
 
     @Test
-    void checkNombreInstructor() {
-        Optional<Instructor> optionalInstructor = InstructorRepository.findById(1);
-        assertTrue(optionalInstructor.isPresent());
+    void getAllInstructors() throws Exception {
+        when(instructorService.getAllInstructor()).thenReturn("Lista de instructores");
 
-        Instructor instructor = optionalInstructor.get();
-        assertEquals("", instructor.getNombre());
-    }
-
-    @Test
-    void deleteInstructorByIdTest() {
-        Instructor instructor = new Instructor();
-        instructor.setNombre("Instructor Prueba");
-        instructor.setEspecialidad("Test");
-        instructor.setCorreo("test@edu.com");
-        instructor.setContrasena("1234");
-
-        Instructor saved = InstructorRepository.save(instructor);
-        int id = saved.getId();
-
-        assertTrue(InstructorRepository.findById(id).isPresent());
-
-        InstructorRepository.deleteById(id);
-
-        assertFalse(InstructorRepository.findById(id).isPresent());
-    }
-
-    @Test
-    void findAllInstructoresTest() {
-        List<Instructor> instructors = InstructorRepository.findAll();
-
-        assertNotNull(instructors);
-
-        assertTrue(instructors.size() >= 1);
-    }
-
-    @Test
-    void VerNombreInstuctor() {
-        Optional<Instructor> optInstructor = InstructorRepository.findById(1);
-        assertTrue(optInstructor.isPresent());
-        Instructor instructor = optInstructor.get();
-
-
-        assertEquals("NombreEsperado", instructor.getNombre());
-    }
-
-    @Test
-     void GuardarInstructor() {
-        Instructor instructor = new Instructor();
-        instructor.setNombre("Instructor Test");
-        instructor.setEspecialidad("Test Especialidad");
-        instructor.setCorreo("test@edu.com");
-        instructor.setContrasena("1234");
-
-
-        Instructor saved = InstructorRepository.save(instructor);
-        int savedId = saved.getId();
-
-
-        assertTrue(InstructorRepository.findById(savedId).isPresent());
-
-
-        InstructorRepository.deleteById(savedId);
-
-
-        assertFalse(InstructorRepository.findById(savedId).isPresent());
-    }
-
-    @Test
-    void getAllInstructoresEndpointTest() throws Exception {
-        List<Instructor> mockList = Arrays.asList(
-                new Instructor(),
-                new Instructor()
-        );
-
-        when(InstructorService.obtenerTodos()).thenReturn(mockList);
-
-        mockMvc.perform(get("/instructores"))
+        mockMvc.perform(get("/instructor"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(org.hamcrest.Matchers.containsString("Luis")));
-
-        verify(InstructorService).obtenerTodos();
+                .andExpect(content().string("Lista de instructores"));
     }
 
     @Test
-    void deleteInstructorEndpointTest() throws Exception {
-        int idToDelete = 5;
+    void getInstructorById() throws Exception {
+        int id = 1;
+        when(instructorService.getInstructorById(id)).thenReturn("Instructor encontrado");
 
-        Mockito.doNothing().when(InstructorService).deleteInstructor(idToDelete);
-
-        mockMvc.perform(delete("/instructores/" + idToDelete))
+        mockMvc.perform(get("/instructor/{id}", id))
                 .andExpect(status().isOk())
-               
-                .andExpect(content().string(org.hamcrest.Matchers.containsString("Eliminado")));
+                .andExpect(content().string("Instructor encontrado"));
+    }
 
-        verify(InstructorService).getInstructorById(1);
+    @Test
+    void addInstructor() throws Exception {
+        when(instructorService.addInstructor(Mockito.any(Instructor.class)))
+                .thenReturn("Instructor añadido");
 
+        mockMvc.perform(post("/instructor")
+                        .contentType("application/json")
+                        .content("""
+                    {
+                        "nombre": "Test Instructor",
+                        "correo": "instructor@duoc.cl",
+                        "contrasena": "1234"
+                    }
+                """))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Instructor añadido"));
+    }
 
+    @Test
+    void updateInstructor() throws Exception {
+        int id = 1;
+        when(instructorService.updateInstructor(Mockito.eq(id), Mockito.any(Instructor.class)))
+                .thenReturn("instructor actualizado");
+
+        mockMvc.perform(put("/instructor/{id}", id)
+                        .contentType("application/json")
+                        .content("""
+                    {
+                        "nombre": "Editado",
+                        "correo": "editado@duoc.cl",
+                        "contrasena": "5678"
+                    }
+                """))
+                .andExpect(status().isOk())
+                .andExpect(content().string("instructor actualizado"));
+    }
+
+    @Test
+    void deleteInstructor() throws Exception {
+        int id = 1;
+        when(instructorService.deleteInstructor(id)).thenReturn("Instructor elimiando");
+
+        mockMvc.perform(delete("/instructor/{id}", id))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Instructor elimiando"));
+    }
+
+    @Test
+    void guardarYEliminarInstructorDesdeRepository() {
+        Instructor instructor = new Instructor();
+        instructor.setNombre("Persistente");
+        instructor.setCorreo("persistente@duoc.cl");
+        instructor.setContrasena("clave");
+
+        Instructor guardado = instructorRepository.save(instructor);
+        int id = guardado.getId();
+
+        Optional<Instructor> encontrado = instructorRepository.findById(id);
+        assertTrue(encontrado.isPresent(), "Instructor debería estar presente en la base de datos");
+
+        instructorRepository.deleteById(id);
+        Optional<Instructor> eliminado = instructorRepository.findById(id);
+        assertFalse(eliminado.isPresent(), "Instructor debería haber sido eliminado");
     }
 }
