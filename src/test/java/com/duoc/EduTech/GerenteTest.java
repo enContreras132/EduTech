@@ -3,20 +3,25 @@ package com.duoc.EduTech;
 import com.duoc.EduTech.Model.GerenteCursos;
 import com.duoc.EduTech.Repository.GerenteRepository;
 import com.duoc.EduTech.Service.GerenteCursosService;
-import jakarta.persistence.EntityNotFoundException;
+
+import static org.mockito.Mockito.when;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -60,7 +65,7 @@ public class GerenteTest {
     }
     @Test
     void chekGetAllGerentes(){
-        Mockito.when(gerenteCursosService.getAllGerente()).thenReturn("Lista completa");
+        when(gerenteCursosService.getAllGerente()).thenReturn("Lista completa");
 
         try {
             mockMvc.perform(get("/gerente"))
@@ -75,10 +80,52 @@ public class GerenteTest {
 
 
     }
+    @Test
+    void addGerenteTest() throws Exception {
+        when(gerenteCursosService.addGerente(Mockito.any(GerenteCursos.class)))
+                .thenReturn("Gerente agregado");
 
+        mockMvc.perform(post("/gerente")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "nombre": "Test Gerente"
+                                }
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Gerente agregado"));
+    }
 
+    @Test
+    void updateGerenteTest() throws Exception {
+        int id = 1;
+        when(gerenteCursosService.updateGerente(Mockito.eq(id), Mockito.any(GerenteCursos.class)))
+                .thenReturn("Gerente actualizado");
 
+        mockMvc.perform(put("/gerente/{id}", id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                    "nombre": "Gerente Modificado"
+                                }
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Gerente actualizado"));
+    }
+    @Test
+    void deleteGerenteTest() throws Exception {
+        int id = 1;
+        when(gerenteCursosService.deleteGerente(id)).thenReturn("Gerente eliminado");
 
-
-
+        mockMvc.perform(delete("/gerente/{id}", id))
+                .andExpect(status().isOk())
+                .andExpect(content().string("Gerente eliminado"));
+    }
 }
+
+
+
+
+
+
+
