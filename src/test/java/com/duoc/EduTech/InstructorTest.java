@@ -127,7 +127,7 @@ public class InstructorTest {
     void deleteInstructorEndpointTest() throws Exception {
         int idToDelete = 5;
 
-        Mockito.doNothing().when(instructorService).deleteInstructor(idToDelete);
+        when(instructorService.deleteInstructor(idToDelete)).thenReturn("Eliminado");
 
         mockMvc.perform(delete("/instructores/" + idToDelete))
                 .andExpect(status().isOk())
@@ -135,6 +135,7 @@ public class InstructorTest {
                 .andExpect(content().string(org.hamcrest.Matchers.containsString("Eliminado")));
 
         verify(instructorService).getInstructorById(idToDelete);
+        verify(instructorService).deleteInstructor(idToDelete);
 
 
     }
