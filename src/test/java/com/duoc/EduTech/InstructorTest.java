@@ -31,17 +31,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class InstructorTest {
 
     @Autowired
-    InstructorRepository InstructorRepository;
+    InstructorRepository instructorRepository;
 
     @Autowired
     MockMvc mockMvc;
 
     @MockitoBean
-    InstructorService InstructorService;
+    InstructorService instructorService;
 
     @Test
     void checkNombreInstructor() {
-        Optional<Instructor> optionalInstructor = InstructorRepository.findById(1);
+        Optional<Instructor> optionalInstructor = instructorRepository.findById(1);
         assertTrue(optionalInstructor.isPresent());
 
         Instructor instructor = optionalInstructor.get();
@@ -56,19 +56,19 @@ public class InstructorTest {
         instructor.setCorreo("test@edu.com");
         instructor.setContrasena("1234");
 
-        Instructor saved = InstructorRepository.save(instructor);
+        Instructor saved = instructorRepository.save(instructor);
         int id = saved.getId();
 
-        assertTrue(InstructorRepository.findById(id).isPresent());
+        assertTrue(instructorRepository.findById(id).isPresent());
 
-        InstructorRepository.deleteById(id);
+        instructorRepository.deleteById(id);
 
-        assertFalse(InstructorRepository.findById(id).isPresent());
+        assertFalse(instructorRepository.findById(id).isPresent());
     }
 
     @Test
     void findAllInstructoresTest() {
-        List<Instructor> instructors = InstructorRepository.findAll();
+        List<Instructor> instructors = instructorRepository.findAll();
 
         assertNotNull(instructors);
 
@@ -77,7 +77,7 @@ public class InstructorTest {
 
     @Test
     void VerNombreInstuctor() {
-        Optional<Instructor> optInstructor = InstructorRepository.findById(1);
+        Optional<Instructor> optInstructor = instructorRepository.findById(1);
         assertTrue(optInstructor.isPresent());
         Instructor instructor = optInstructor.get();
 
@@ -94,17 +94,17 @@ public class InstructorTest {
         instructor.setContrasena("1234");
 
 
-        Instructor saved = InstructorRepository.save(instructor);
+        Instructor saved = instructorRepository.save(instructor);
         int savedId = saved.getId();
 
 
-        assertTrue(InstructorRepository.findById(savedId).isPresent());
+        assertTrue(instructorRepository.findById(savedId).isPresent());
 
 
-        InstructorRepository.deleteById(savedId);
+        instructorRepository.deleteById(savedId);
 
 
-        assertFalse(InstructorRepository.findById(savedId).isPresent());
+        assertFalse(instructorRepository.findById(savedId).isPresent());
     }
 
     @Test
@@ -114,27 +114,27 @@ public class InstructorTest {
                 new Instructor()
         );
 
-        when(InstructorService.obtenerTodos()).thenReturn(mockList);
+        when(instructorService.obtenerTodos()).thenReturn(mockList);
 
         mockMvc.perform(get("/instructores"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(org.hamcrest.Matchers.containsString("Luis")));
 
-        verify(InstructorService).obtenerTodos();
+        verify(instructorService).obtenerTodos();
     }
 
     @Test
     void deleteInstructorEndpointTest() throws Exception {
         int idToDelete = 5;
 
-        Mockito.doNothing().when(InstructorService).deleteInstructor(idToDelete);
+        Mockito.doNothing().when(instructorService).deleteInstructor(idToDelete);
 
         mockMvc.perform(delete("/instructores/" + idToDelete))
                 .andExpect(status().isOk())
                
                 .andExpect(content().string(org.hamcrest.Matchers.containsString("Eliminado")));
 
-        verify(InstructorService).getInstructorById();
+        verify(instructorService).getInstructorById(idToDelete);
 
 
     }
